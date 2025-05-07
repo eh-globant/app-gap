@@ -2,7 +2,7 @@
 import image from "../assets/images/products/product1.jpg";
 import { Product } from "../types/product";
 
-const allProducts: Product[] = Array.from({ length: 32 }, (_, i) => ({
+const allProducts: Product[] = Array.from({ length: 100 }, (_, i) => ({
   id: `x${i + 1}`,
   name: `Shirt ${i + 1}`,
   image: image,
