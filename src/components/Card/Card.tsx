@@ -1,7 +1,7 @@
 import { Product } from "../../types/product";
-import styles from "./Card.module.scss";
-
 import { formatPrice } from "../../utils/formatters";
+
+import styles from "./Card.module.scss";
 
 interface CardProps {
   product: Product;
