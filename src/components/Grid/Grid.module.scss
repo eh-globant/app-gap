@@ -1,9 +1,28 @@
 .grid {
     display: grid;
+    width: 100%;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     margin-bottom: 30px;
     &-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    &__scroll-trigger{
+        height: 20px;
+        margin: 20px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &__loading-spinner{
+        padding: 10px;
+    }
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
