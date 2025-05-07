@@ -12,7 +12,7 @@ export default function Card({ product }: CardProps) {
     <div className={styles["card__container"]}>
       <div className={styles["card__image-container"]}>
         <img
-          className={styles.card__image}
+          className={styles["card__image"]}
           src={product.image}
           alt={product.name}
         ></img>
