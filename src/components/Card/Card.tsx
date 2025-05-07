@@ -9,7 +9,7 @@ interface CardProps {
 
 export default function Card({ product }: CardProps) {
   return (
-    <>
+    <div className={styles["card__container"]}>
       <div className={styles["card__image-container"]}>
         <img
           className={styles.card__image}
@@ -28,6 +28,6 @@ export default function Card({ product }: CardProps) {
           {formatPrice(product.discount, "MXN")}
         </p>
       </div>
-    </>
+    </div>
   );
 }
