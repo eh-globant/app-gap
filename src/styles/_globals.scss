@@ -1,6 +1,12 @@
 @import 'variables';
 
 // Global styles
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
 body {
   font-family: $font-primary;
   font-size: $font-size-base;
