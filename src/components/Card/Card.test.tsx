@@ -1,0 +1,41 @@
+import { render, screen } from "@testing-library/react";
+import Card from "./Card";
+import { Product } from "../../types/product";
+import { formatPrice } from "../../utils/formatters";
+
+describe("Card Component", () => {
+  const mockProduct: Product = {
+    id: "1",
+    name: "Test Product",
+    image: "test-image.jpg",
+    description: "Test Description",
+    cost: 600,
+    discount: 500,
+  };
+
+  it("renders product information correctly", () => {
+    render(<Card product={mockProduct} />);
+
+    // Verify image attributes
+    const image = screen.getByAltText(mockProduct.name);
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveAttribute("src", mockProduct.image);
+
+    // Verify description
+    expect(screen.getByText(mockProduct.description)).toBeInTheDocument();
+
+    // Verify prices
+    const formattedCost = formatPrice(mockProduct.cost, "MXN");
+    const formattedDiscount = formatPrice(mockProduct.discount, "MXN");
+    expect(screen.getByText(formattedCost)).toBeInTheDocument(); // Original
+    expect(screen.getByText(formattedDiscount)).toBeInTheDocument(); // Discount
+  });
+
+  it("applies correct CSS classes", () => {
+    const { container } = render(<Card product={mockProduct} />);
+
+    // Verify main classes
+    expect(container.firstChild).toHaveClass("card__container");
+    expect(screen.getByAltText(mockProduct.name)).toHaveClass("card__image");
+  });
+});
