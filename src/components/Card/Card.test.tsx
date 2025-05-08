@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import Card from "./Card";
 import { Product } from "../../types/product";
 import { formatPrice } from "../../utils/formatters";
@@ -14,28 +14,28 @@ describe("Card Component", () => {
   };
 
   it("renders product information correctly", () => {
-    render(<Card product={mockProduct} />);
+    const { getByAltText, getByText } = render(<Card product={mockProduct} />);
 
     // Verify image attributes
-    const image = screen.getByAltText(mockProduct.name);
+    const image = getByAltText(mockProduct.name);
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute("src", mockProduct.image);
 
     // Verify description
-    expect(screen.getByText(mockProduct.description)).toBeInTheDocument();
+    expect(getByText(mockProduct.description)).toBeInTheDocument();
 
     // Verify prices
     const formattedCost = formatPrice(mockProduct.cost, "MXN");
     const formattedDiscount = formatPrice(mockProduct.discount, "MXN");
-    expect(screen.getByText(formattedCost)).toBeInTheDocument(); // Original
-    expect(screen.getByText(formattedDiscount)).toBeInTheDocument(); // Discount
+    expect(getByText(formattedCost)).toBeInTheDocument();
+    expect(getByText(formattedDiscount)).toBeInTheDocument();
   });
 
   it("applies correct CSS classes", () => {
-    const { container } = render(<Card product={mockProduct} />);
+    const { container, getByAltText } = render(<Card product={mockProduct} />);
 
     // Verify main classes
     expect(container.firstChild).toHaveClass("card__container");
-    expect(screen.getByAltText(mockProduct.name)).toHaveClass("card__image");
+    expect(getByAltText(mockProduct.name)).toHaveClass("card__image");
   });
 });

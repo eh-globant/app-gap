@@ -1,4 +1,4 @@
-import { render, screen, waitFor, act } from "@testing-library/react";
+import { render, waitFor, act } from "@testing-library/react";
 import GridWrapper from "./GridWrapper";
 import "@testing-library/jest-dom";
 
@@ -75,38 +75,38 @@ describe("GridWrapper Component", () => {
   };
 
   it("renders without crashing", () => {
-    render(<GridWrapper />);
-    expect(screen.getByTestId("grid-wrapper")).toBeInTheDocument();
+    const { getByTestId } = render(<GridWrapper />);
+    expect(getByTestId("grid-wrapper")).toBeInTheDocument();
   });
 
   it("loads initial 8 products", async () => {
-    render(<GridWrapper />);
+    const { getAllByRole } = render(<GridWrapper />);
 
     await waitFor(() => {
-      expect(screen.getAllByRole("img")).toHaveLength(8);
+      expect(getAllByRole("img")).toHaveLength(8);
     });
   });
 
   it("shows loading indicator when fetching more products", async () => {
-    render(<GridWrapper />);
+    const { getByText, queryByText } = render(<GridWrapper />);
 
     await simulateScroll();
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    expect(getByText("Loading...")).toBeInTheDocument();
 
     await waitFor(
       () => {
-        expect(screen.queryByText("Loading...")).not.toBeInTheDocument();
+        expect(queryByText("Loading...")).not.toBeInTheDocument();
       },
       { timeout: 2000 }
     );
   });
 
   it("loads additional 8 products when scrolled", async () => {
-    render(<GridWrapper />);
+    const { getAllByRole } = render(<GridWrapper />);
 
     // Verify initial load
     await waitFor(() => {
-      expect(screen.getAllByRole("img")).toHaveLength(8);
+      expect(getAllByRole("img")).toHaveLength(8);
     });
 
     // Simulate scroll
@@ -115,17 +115,17 @@ describe("GridWrapper Component", () => {
     // Verify additional load
     await waitFor(
       () => {
-        expect(screen.getAllByRole("img")).toHaveLength(16);
+        expect(getAllByRole("img")).toHaveLength(16);
       },
       { timeout: 2000 }
     );
   });
 
   it("matches snapshot", async () => {
-    const { asFragment } = render(<GridWrapper />);
+    const { asFragment, getAllByRole } = render(<GridWrapper />);
 
     await waitFor(() => {
-      expect(screen.getAllByRole("img")).toHaveLength(8);
+      expect(getAllByRole("img")).toHaveLength(8);
     });
 
     expect(asFragment()).toMatchSnapshot();
