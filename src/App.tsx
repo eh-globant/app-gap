@@ -1,10 +1,5 @@
-import "./styles.css";
+import GridWrapper from "./components/Grid/GridWrapper";
 
 export default function App() {
-  return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
-  );
+  return <GridWrapper productsPerPage={8} />;
 }
