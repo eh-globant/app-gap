@@ -16,7 +16,7 @@ export default function GridWrapper({ productsPerPage = 8 }: GridProps) {
 
   // Load more products
   const loadMoreProducts = useCallback(async () => {
-    if (isLoading) return;
+    if (isLoading || visibleProducts.length >= allProducts.length) return;
 
     setIsLoading(true);
 
@@ -25,7 +25,7 @@ export default function GridWrapper({ productsPerPage = 8 }: GridProps) {
 
     // Calculate indexes
     const startIndex = page * productsPerPage;
-    const endIndex = startIndex + productsPerPage;
+    const endIndex = (page + 1) * productsPerPage;
     const nextProducts = allProducts.slice(startIndex, endIndex);
 
     // Add new products
@@ -50,7 +50,7 @@ export default function GridWrapper({ productsPerPage = 8 }: GridProps) {
 
   return (
     <>
-      <div className={styles["grid__wrapper"]}>
+      <div className={styles["grid__wrapper"]} data-testid="grid-wrapper">
         <Grid products={visibleProducts} />
       </div>
       <div ref={targetRef} className={styles["grid__scroll-trigger"]}>
